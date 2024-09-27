@@ -1,0 +1,8 @@
+.chess-select {
+  padding: 1rem;
+}
+
+.chess-select select {
+  margin-left: 0.5rem;
+  padding: 0.25rem;
+}

@@ -16,7 +16,43 @@ describe('TicTacToe', () => {
     const secondCell = screen.getAllByRole('button')[1];
     fireEvent.click(firstCell);
 
-    expect(firstCell).toHaveTextContent('O');
-    expect(secondCell).not.toHaveTextContent('O');
+    expect(firstCell).toHaveTextContent('X');
+    expect(secondCell).not.toHaveTextContent('X');
+  });
+
+  it('takes turn placing X and then O in standard mode', () => {
+    render(<TicTacToe />);
+
+    for (let i = 0; i < 9; i++) {
+      fireEvent.click(screen.getAllByRole('button')[i]);
+    }
+
+    const gameState = screen
+      .getAllByRole('button')
+      .map((button) => button.innerHTML)
+      .join('');
+
+    expect(gameState).toStrictEqual('XOXOXOXOX');
+  });
+
+  it('allows playing either X or O in wild mode', () => {
+    render(<TicTacToe wildMode={true} />);
+
+    for (let i = 0; i < 5; i++) {
+      fireEvent.click(screen.getAllByRole('button')[i]);
+    }
+
+    fireEvent.change(screen.getByDisplayValue('X'), { target: { value: 'O' } });
+
+    for (let i = 5; i < 9; i++) {
+      fireEvent.click(screen.getAllByRole('button')[i]);
+    }
+
+    const gameState = screen
+      .getAllByRole('button')
+      .map((button) => button.innerHTML)
+      .join('');
+
+    expect(gameState).toStrictEqual('XXXXXOOOO');
   });
 });
