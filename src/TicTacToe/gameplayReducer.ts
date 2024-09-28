@@ -1,3 +1,5 @@
+import checkEndGame from './utils/checkEndGame';
+
 export type ChessPiece = 'X' | 'O';
 
 type GameplayActions = {
@@ -9,6 +11,8 @@ type GameplayActions = {
 export interface GameplayStates {
   gameState: (ChessPiece | null)[];
   isPlayerTwoTurn: boolean;
+  isPlayerWins: boolean;
+  isDraw: boolean;
 }
 
 const gameplayReducer = (state: GameplayStates, action: GameplayActions) => {
@@ -18,10 +22,13 @@ const gameplayReducer = (state: GameplayStates, action: GameplayActions) => {
     case 'place-chess': {
       const updatedGameState = [...gameState];
       updatedGameState[action.cellPos] = action.chess;
+
+      const endGameState = checkEndGame(updatedGameState, isPlayerTwoTurn);
+
       return {
         ...state,
-        isPlayerTwoTurn: !isPlayerTwoTurn,
         gameState: updatedGameState,
+        ...endGameState,
       };
     }
   }

@@ -3,15 +3,18 @@ import { BoardCell, GameBoard } from './Board/Board';
 import gameplayReducer, { ChessPiece } from './gameplayReducer';
 import { TWO_PLAYER_TURN_STRING } from './constants';
 import ChessSelect from './ChessSelect/ChessSelect';
+import GameEnds from './GameEnds/GameEnds';
 
 const initState = {
   gameState: [...Array(9).fill(null)],
   isPlayerTwoTurn: false,
+  isPlayerWins: false,
+  isDraw: false,
 };
 
 const TicTacToe = ({ wildMode = false }) => {
   const [states, dispatch] = useReducer(gameplayReducer, initState);
-  const { gameState, isPlayerTwoTurn } = states;
+  const { gameState, isPlayerTwoTurn, isPlayerWins, isDraw } = states;
   const chessSelect = useRef<HTMLSelectElement>(null);
 
   const handleClickToPlaceChess = (cellPos: number) => () => {
@@ -30,6 +33,7 @@ const TicTacToe = ({ wildMode = false }) => {
             key={`cell-${i}`}
             chess={chess}
             onClickOnce={handleClickToPlaceChess(i)}
+            disabled={isPlayerWins || isDraw}
           />
         ))}
       </GameBoard>
@@ -40,6 +44,12 @@ const TicTacToe = ({ wildMode = false }) => {
         ref={chessSelect}
         wildMode={wildMode}
         isPlayerTwoTurn={isPlayerTwoTurn}
+      />
+
+      <GameEnds
+        isPlayerTwoTurn={isPlayerTwoTurn}
+        isPlayerWins={isPlayerWins}
+        isDraw={isDraw}
       />
     </>
   );
