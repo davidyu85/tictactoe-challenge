@@ -1,4 +1,9 @@
-import { GameplayStates, GameplayActions, ChessPiece } from './types';
+import {
+  GameplayStates,
+  GameplayActions,
+  ChessPiece,
+  ChessAccessMap,
+} from './types';
 import checkEndGame from './utils/checkEndGame';
 import miniMax from './utils/miniMax';
 
@@ -21,17 +26,21 @@ const gameplayReducer = (state: GameplayStates, action: GameplayActions) => {
 
     case 'computer-place-chess': {
       const updatedGameState = [...gameState];
-      const chessForComputer = isPlayerTwoTurn ? 'O' : 'X';
+      const chessAccess: ChessAccessMap = {
+        computer: ['O'],
+        player: ['X'],
+      };
+
+      let bestScore = -Infinity;
       let bestMove: { chess: ChessPiece; pos: number } = {
         pos: -1,
-        chess: chessForComputer,
+        chess: chessAccess.computer[0],
       };
-      let bestScore = -Infinity;
 
       updatedGameState.forEach((cell, i) => {
         if (cell === null) {
           updatedGameState[i] = 'O';
-          const score = miniMax(true, updatedGameState, 0, false);
+          const score = miniMax(chessAccess, updatedGameState, 0, false);
           updatedGameState[i] = null;
 
           if (score > bestScore) {

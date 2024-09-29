@@ -2,6 +2,8 @@ export type ChessPiece = 'X' | 'O';
 
 export type TicTacToeGameState = (ChessPiece | null)[];
 
+export type ChessAccessMap = { computer: ChessPiece[]; player: ChessPiece[] };
+
 export type GameplayActions =
   | {
       type: 'place-chess';
