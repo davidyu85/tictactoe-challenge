@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import miniMax from './miniMax';
-import { TicTacToeGameState } from '../gameplayReducer';
+import { TicTacToeGameState } from '../types';
 
 describe('miniMax', () => {
   it('give a positive score if maximizing player wins at terminal state', () => {

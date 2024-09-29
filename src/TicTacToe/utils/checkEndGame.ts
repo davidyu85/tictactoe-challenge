@@ -1,4 +1,4 @@
-import { TicTacToeGameState } from '../gameplayReducer';
+import { TicTacToeGameState } from '../types';
 
 const ticTacToeWiningOutcomes = [
   [0, 1, 2],

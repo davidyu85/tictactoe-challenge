@@ -1,4 +1,4 @@
-import { TicTacToeGameState } from '../gameplayReducer';
+import { TicTacToeGameState } from '../types';
 import checkEndGame from './checkEndGame';
 
 const miniMax = (

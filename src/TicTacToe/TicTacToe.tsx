@@ -1,9 +1,10 @@
 import { useEffect, useReducer, useRef } from 'react';
 import { BoardCell, GameBoard } from './Board/Board';
-import gameplayReducer, { ChessPiece } from './gameplayReducer';
+import gameplayReducer from './gameplayReducer';
 import { TWO_PLAYER_TURN_STRING } from './constants';
 import ChessSelect from './ChessSelect/ChessSelect';
 import GameEnds from './GameEnds/GameEnds';
+import { ChessPiece } from './types';
 
 const initState = {
   gameState: [...Array(9).fill(null)],

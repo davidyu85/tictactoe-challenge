@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import checkEndGame from './checkEndGame';
-import { TicTacToeGameState } from '../gameplayReducer';
+import { TicTacToeGameState } from '../types';
 
 describe('checkEndGame', () => {
   it('returns isPlayerWins when the horizontal winning outcome is found', () => {
