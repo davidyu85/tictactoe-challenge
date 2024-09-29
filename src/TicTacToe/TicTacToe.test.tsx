@@ -104,3 +104,65 @@ describe('TicTacToe - gameplay', () => {
     expect(screen.getByText('Draw!')).toBeVisible();
   });
 });
+
+describe('TicTacToe - with computer player', () => {
+  it('can block a player move horizontally', () => {
+    render(<TicTacToe computerIsPlayer2 />);
+
+    fireEvent.click(screen.getAllByRole('button')[6]);
+    fireEvent.click(screen.getAllByRole('button')[7]);
+
+    const gameState = screen.getAllByRole('button');
+    expect(gameState[8].innerHTML).toStrictEqual('O');
+  });
+
+  it('can block a player move vertically', () => {
+    render(<TicTacToe computerIsPlayer2 />);
+
+    fireEvent.click(screen.getAllByRole('button')[0]);
+    fireEvent.click(screen.getAllByRole('button')[3]);
+
+    const gameState = screen.getAllByRole('button');
+    expect(gameState[6].innerHTML).toStrictEqual('O');
+  });
+
+  it('can block a player move diagonally', () => {
+    render(<TicTacToe computerIsPlayer2 />);
+
+    fireEvent.click(screen.getAllByRole('button')[4]);
+    fireEvent.click(screen.getAllByRole('button')[6]);
+
+    const gameState = screen.getAllByRole('button');
+    expect(gameState[2].innerHTML).toStrictEqual('O');
+  });
+
+  it('can play a winning move horizontally', () => {
+    render(<TicTacToe computerIsPlayer2 />);
+
+    fireEvent.click(screen.getAllByRole('button')[3]);
+    fireEvent.click(screen.getAllByRole('button')[6]);
+    fireEvent.click(screen.getAllByRole('button')[7]);
+
+    expect(screen.getByText(/wins!/)).toBeVisible();
+  });
+
+  it('can play a winning move vertically', () => {
+    render(<TicTacToe computerIsPlayer2 />);
+
+    fireEvent.click(screen.getAllByRole('button')[1]);
+    fireEvent.click(screen.getAllByRole('button')[2]);
+    fireEvent.click(screen.getAllByRole('button')[5]);
+
+    expect(screen.getByText(/wins!/)).toBeVisible();
+  });
+
+  it('can play a winning move diagonally', () => {
+    render(<TicTacToe computerIsPlayer2 />);
+
+    fireEvent.click(screen.getAllByRole('button')[1]);
+    fireEvent.click(screen.getAllByRole('button')[7]);
+    fireEvent.click(screen.getAllByRole('button')[6]);
+
+    expect(screen.getByText(/wins!/)).toBeVisible();
+  });
+});

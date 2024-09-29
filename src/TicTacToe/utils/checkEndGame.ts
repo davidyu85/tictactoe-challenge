@@ -1,4 +1,4 @@
-import { ChessPiece } from '../gameplayReducer';
+import { TicTacToeGameState } from '../gameplayReducer';
 
 const ticTacToeWiningOutcomes = [
   [0, 1, 2],
@@ -12,7 +12,7 @@ const ticTacToeWiningOutcomes = [
 ];
 
 const checkEndGame = (
-  gameState: (ChessPiece | null)[],
+  gameState: TicTacToeGameState,
   isPlayerTwoTurn: boolean
 ) => {
   const hasWon = ticTacToeWiningOutcomes.find(

@@ -1,4 +1,4 @@
-import { useReducer, useRef } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import { BoardCell, GameBoard } from './Board/Board';
 import gameplayReducer, { ChessPiece } from './gameplayReducer';
 import { TWO_PLAYER_TURN_STRING } from './constants';
@@ -12,7 +12,7 @@ const initState = {
   isDraw: false,
 };
 
-const TicTacToe = ({ wildMode = false }) => {
+const TicTacToe = ({ wildMode = false, computerIsPlayer2 = false }) => {
   const [states, dispatch] = useReducer(gameplayReducer, initState);
   const { gameState, isPlayerTwoTurn, isPlayerWins, isDraw } = states;
   const chessSelect = useRef<HTMLSelectElement>(null);
@@ -24,6 +24,14 @@ const TicTacToe = ({ wildMode = false }) => {
       chess: chessSelect.current?.value as ChessPiece,
     });
   };
+
+  useEffect(() => {
+    if (computerIsPlayer2 && isPlayerTwoTurn) {
+      dispatch({
+        type: 'computer-place-chess',
+      });
+    }
+  }, [isPlayerTwoTurn, computerIsPlayer2]);
 
   return (
     <>
@@ -38,7 +46,9 @@ const TicTacToe = ({ wildMode = false }) => {
         ))}
       </GameBoard>
 
-      <label>{TWO_PLAYER_TURN_STRING[isPlayerTwoTurn ? 2 : 1]}</label>
+      {!computerIsPlayer2 && (
+        <label>{TWO_PLAYER_TURN_STRING[isPlayerTwoTurn ? 2 : 1]}</label>
+      )}
 
       <ChessSelect
         ref={chessSelect}
