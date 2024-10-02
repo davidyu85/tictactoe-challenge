@@ -13,4 +13,5 @@
   border-radius: 0;
   background: #ccc;
   cursor: pointer;
+  user-select: none;
 }

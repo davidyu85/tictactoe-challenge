@@ -1,16 +1,33 @@
-import { DRAW_STRING, TWO_PLAYER_WIN_STRING } from '../constants';
+import {
+  DRAW_STRING,
+  SINGLE_PLAYER_WIN_STRING,
+  TWO_PLAYER_WIN_STRING,
+} from '../constants';
 
 interface GameEndsProps {
+  computerIsPlayer2: boolean;
   isPlayerTwoTurn: boolean;
   isPlayerWins: boolean;
   isDraw: boolean;
 }
 
-const GameEnds = ({ isPlayerTwoTurn, isPlayerWins, isDraw }: GameEndsProps) => (
-  <>
-    {isPlayerWins && <h2>{TWO_PLAYER_WIN_STRING[isPlayerTwoTurn ? 2 : 1]}</h2>}
-    {isDraw && <h2>{DRAW_STRING}</h2>}
-  </>
-);
+const GameEnds = ({
+  computerIsPlayer2,
+  isPlayerTwoTurn,
+  isPlayerWins,
+  isDraw,
+}: GameEndsProps) => {
+  if (isDraw) {
+    return <h2>{DRAW_STRING}</h2>;
+  }
+
+  if (!computerIsPlayer2 && isPlayerWins) {
+    return <h2>{TWO_PLAYER_WIN_STRING[isPlayerTwoTurn ? 2 : 1]}</h2>;
+  }
+
+  if (computerIsPlayer2 && isPlayerWins) {
+    return <h2>{SINGLE_PLAYER_WIN_STRING[isPlayerTwoTurn ? 2 : 1]}</h2>;
+  }
+};
 
 export default GameEnds;

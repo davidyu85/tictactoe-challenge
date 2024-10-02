@@ -1,3 +1,8 @@
+export interface TicTacToeProps {
+  wildMode?: boolean;
+  computerIsPlayer2?: boolean;
+}
+
 export type ChessPiece = 'X' | 'O';
 
 export type TicTacToeGameState = (ChessPiece | null)[];
