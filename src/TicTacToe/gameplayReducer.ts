@@ -26,10 +26,15 @@ const gameplayReducer = (state: GameplayStates, action: GameplayActions) => {
 
     case 'computer-place-chess': {
       const updatedGameState = [...gameState];
-      const chessAccess: ChessAccessMap = {
-        computer: ['O'],
-        player: ['X'],
-      };
+      const chessAccess: ChessAccessMap = !action.wildMode
+        ? {
+            computer: ['O'],
+            player: ['X'],
+          }
+        : {
+            computer: ['X', 'O'],
+            player: ['X', 'O'],
+          };
 
       let bestScore = -Infinity;
       let bestMove: { chess: ChessPiece; pos: number } = {
@@ -37,20 +42,22 @@ const gameplayReducer = (state: GameplayStates, action: GameplayActions) => {
         chess: chessAccess.computer[0],
       };
 
-      updatedGameState.forEach((cell, i) => {
-        if (cell === null) {
-          updatedGameState[i] = 'O';
-          const score = miniMax(chessAccess, updatedGameState, 0, false);
-          updatedGameState[i] = null;
+      chessAccess.computer.forEach((chess: ChessPiece) => {
+        updatedGameState.forEach((cell, i) => {
+          if (cell === null) {
+            updatedGameState[i] = chess;
+            const score = miniMax(chessAccess, updatedGameState, 0, false);
+            updatedGameState[i] = null;
 
-          if (score > bestScore) {
-            bestScore = score;
-            bestMove = {
-              chess: 'O',
-              pos: i,
-            };
+            if (score > bestScore) {
+              bestScore = score;
+              bestMove = {
+                chess,
+                pos: i,
+              };
+            }
           }
-        }
+        });
       });
 
       updatedGameState[bestMove.pos] = bestMove.chess;

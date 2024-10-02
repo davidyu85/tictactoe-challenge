@@ -17,6 +17,7 @@ export type GameplayActions =
     }
   | {
       type: 'computer-place-chess';
+      wildMode: boolean;
     };
 
 export interface GameplayStates {

@@ -33,9 +33,13 @@ const TicTacToe = ({
     if (computerIsPlayer2 && isPlayerTwoTurn) {
       dispatch({
         type: 'computer-place-chess',
+        wildMode,
       });
     }
-  }, [isPlayerTwoTurn, computerIsPlayer2]);
+  }, [isPlayerTwoTurn, computerIsPlayer2, wildMode]);
+
+  const disablePlaceChess =
+    isPlayerWins || isDraw || (isPlayerTwoTurn && computerIsPlayer2);
 
   return (
     <>
@@ -45,7 +49,7 @@ const TicTacToe = ({
             key={`cell-${i}`}
             chess={chess}
             onClickOnce={handleClickToPlaceChess(i)}
-            disabled={isPlayerWins || isDraw}
+            disabled={disablePlaceChess}
           />
         ))}
       </GameBoard>

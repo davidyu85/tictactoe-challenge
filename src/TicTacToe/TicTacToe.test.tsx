@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import TicTacToe from './TicTacToe';
+import { SINGLE_PLAYER_WIN_STRING } from './constants';
 
 describe('TicTacToe - basic capabilties', () => {
   it('displays a 3 x 3 Tic Tac Toe board', () => {
@@ -143,7 +144,7 @@ describe('TicTacToe - with computer player', () => {
     fireEvent.click(screen.getAllByRole('button')[6]);
     fireEvent.click(screen.getAllByRole('button')[7]);
 
-    expect(screen.getByText(/wins!/)).toBeVisible();
+    expect(screen.getByText(SINGLE_PLAYER_WIN_STRING[2])).toBeVisible();
   });
 
   it('can play a winning move vertically', () => {
@@ -153,7 +154,7 @@ describe('TicTacToe - with computer player', () => {
     fireEvent.click(screen.getAllByRole('button')[2]);
     fireEvent.click(screen.getAllByRole('button')[5]);
 
-    expect(screen.getByText(/wins!/)).toBeVisible();
+    expect(screen.getByText(SINGLE_PLAYER_WIN_STRING[2])).toBeVisible();
   });
 
   it('can play a winning move diagonally', () => {
@@ -163,6 +164,65 @@ describe('TicTacToe - with computer player', () => {
     fireEvent.click(screen.getAllByRole('button')[7]);
     fireEvent.click(screen.getAllByRole('button')[6]);
 
-    expect(screen.getByText(/wins!/)).toBeVisible();
+    expect(screen.getByText(SINGLE_PLAYER_WIN_STRING[2])).toBeVisible();
+  });
+});
+
+describe('TicTacToe - with computer player in wild mode', () => {
+  it('can steal winning move from the player horizontally', () => {
+    render(<TicTacToe computerIsPlayer2 wildMode />);
+
+    fireEvent.click(screen.getAllByRole('button')[1]);
+    fireEvent.click(screen.getAllByRole('button')[0]);
+
+    expect(screen.getByText(SINGLE_PLAYER_WIN_STRING[2])).toBeVisible();
+  });
+
+  it('can steal winning move from the player vertically', () => {
+    render(<TicTacToe computerIsPlayer2 wildMode />);
+
+    fireEvent.click(screen.getAllByRole('button')[3]);
+    fireEvent.click(screen.getAllByRole('button')[0]);
+
+    expect(screen.getByText(SINGLE_PLAYER_WIN_STRING[2])).toBeVisible();
+  });
+
+  it('can steal winning move from the player diagonally', () => {
+    render(<TicTacToe computerIsPlayer2 wildMode />);
+
+    fireEvent.click(screen.getAllByRole('button')[8]);
+    fireEvent.click(screen.getAllByRole('button')[4]);
+
+    expect(screen.getByText(SINGLE_PLAYER_WIN_STRING[2])).toBeVisible();
+  });
+
+  it('can steal winning move from the player horizontally when player switch the chess piece', () => {
+    render(<TicTacToe computerIsPlayer2 wildMode />);
+
+    fireEvent.change(screen.getByDisplayValue('X'), { target: { value: 'O' } });
+    fireEvent.click(screen.getAllByRole('button')[8]);
+    fireEvent.click(screen.getAllByRole('button')[7]);
+
+    expect(screen.getByText(SINGLE_PLAYER_WIN_STRING[2])).toBeVisible();
+  });
+
+  it('can steal winning move from the player vertically when player switch the chess piece', () => {
+    render(<TicTacToe computerIsPlayer2 wildMode />);
+
+    fireEvent.change(screen.getByDisplayValue('X'), { target: { value: 'O' } });
+    fireEvent.click(screen.getAllByRole('button')[4]);
+    fireEvent.click(screen.getAllByRole('button')[7]);
+
+    expect(screen.getByText(SINGLE_PLAYER_WIN_STRING[2])).toBeVisible();
+  });
+
+  it('can steal winning move from the player diagonally when player switch the chess piece', () => {
+    render(<TicTacToe computerIsPlayer2 wildMode />);
+
+    fireEvent.change(screen.getByDisplayValue('X'), { target: { value: 'O' } });
+    fireEvent.click(screen.getAllByRole('button')[4]);
+    fireEvent.click(screen.getAllByRole('button')[6]);
+
+    expect(screen.getByText(SINGLE_PLAYER_WIN_STRING[2])).toBeVisible();
   });
 });

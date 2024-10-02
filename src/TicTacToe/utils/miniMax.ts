@@ -1,4 +1,4 @@
-import { ChessAccessMap, TicTacToeGameState } from '../types';
+import { ChessAccessMap, ChessPiece, TicTacToeGameState } from '../types';
 import checkEndGame from './checkEndGame';
 
 const miniMax = (
@@ -16,26 +16,30 @@ const miniMax = (
   if (isMaxPlayer) {
     let bestScore = -Infinity;
 
-    gameState.forEach((cell, i) => {
-      if (cell === null) {
-        gameState[i] = chessAccess.computer[0];
-        const score = miniMax(chessAccess, gameState, depth + 1, false);
-        gameState[i] = null;
-        bestScore = Math.max(score, bestScore);
-      }
+    chessAccess.computer.forEach((chess: ChessPiece) => {
+      gameState.forEach((cell, i) => {
+        if (cell === null) {
+          gameState[i] = chess;
+          const score = miniMax(chessAccess, gameState, depth + 1, false);
+          gameState[i] = null;
+          bestScore = Math.max(score, bestScore);
+        }
+      });
     });
 
     return bestScore;
   } else {
     let bestScore = Infinity;
 
-    gameState.forEach((cell, i) => {
-      if (cell === null) {
-        gameState[i] = chessAccess.player[0];
-        const score = miniMax(chessAccess, gameState, depth + 1, true);
-        gameState[i] = null;
-        bestScore = Math.min(score, bestScore);
-      }
+    chessAccess.player.forEach((chess: ChessPiece) => {
+      gameState.forEach((cell, i) => {
+        if (cell === null) {
+          gameState[i] = chess;
+          const score = miniMax(chessAccess, gameState, depth + 1, true);
+          gameState[i] = null;
+          bestScore = Math.min(score, bestScore);
+        }
+      });
     });
 
     return bestScore;
