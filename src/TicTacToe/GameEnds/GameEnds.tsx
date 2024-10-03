@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import {
   DRAW_STRING,
   SINGLE_PLAYER_WIN_STRING,
@@ -16,7 +17,7 @@ const GameEnds = ({
   isPlayerTwoTurn,
   isPlayerWins,
   isDraw,
-}: GameEndsProps) => {
+}: GameEndsProps): ReactNode => {
   if (isDraw) {
     return <h2>{DRAW_STRING}</h2>;
   }

@@ -5,7 +5,7 @@ export interface TicTacToeProps {
 
 export type ChessPiece = 'X' | 'O';
 
-export type TicTacToeGameState = (ChessPiece | null)[];
+export type TicTacToeBoard = (ChessPiece | null)[];
 
 export type ChessAccessMap = { computer: ChessPiece[]; player: ChessPiece[] };
 
@@ -21,7 +21,7 @@ export type GameplayActions =
     };
 
 export interface GameplayStates {
-  gameState: TicTacToeGameState;
+  gameBoard: TicTacToeBoard;
   isPlayerTwoTurn: boolean;
   isPlayerWins: boolean;
   isDraw: boolean;

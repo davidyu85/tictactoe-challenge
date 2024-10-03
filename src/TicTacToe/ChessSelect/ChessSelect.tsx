@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, ReactElement } from 'react';
 import './ChessSelect.css';
 
 interface ChessSelectProps {
@@ -7,7 +7,7 @@ interface ChessSelectProps {
 }
 
 const ChessSelect = forwardRef<HTMLSelectElement, ChessSelectProps>(
-  ({ wildMode, isPlayerTwoTurn }, ref) => {
+  ({ wildMode, isPlayerTwoTurn }, ref): ReactElement => {
     const wildSetup = (
       <>
         <small>Wild mode allows you to play either X or O</small>

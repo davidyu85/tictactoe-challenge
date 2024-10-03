@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, ReactElement } from 'react';
 import './board.css';
 
 interface BoardCellProps {
@@ -7,7 +7,11 @@ interface BoardCellProps {
   disabled?: boolean;
 }
 
-export const BoardCell = ({ chess, onClickOnce, disabled }: BoardCellProps) => (
+export const BoardCell = ({
+  chess,
+  onClickOnce,
+  disabled,
+}: BoardCellProps): ReactElement => (
   <button
     className="board-cell"
     disabled={disabled}
@@ -17,6 +21,6 @@ export const BoardCell = ({ chess, onClickOnce, disabled }: BoardCellProps) => (
   </button>
 );
 
-export const GameBoard = ({ children }: PropsWithChildren) => (
+export const GameBoard = ({ children }: PropsWithChildren): ReactElement => (
   <div className="tic-tac-toe-board">{children}</div>
 );

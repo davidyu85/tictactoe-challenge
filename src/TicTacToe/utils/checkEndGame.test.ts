@@ -1,28 +1,28 @@
 import { describe, it, expect } from 'vitest';
 import checkEndGame from './checkEndGame';
-import { TicTacToeGameState } from '../types';
+import { TicTacToeBoard } from '../types';
 
 describe('checkEndGame', () => {
   it('returns isPlayerWins when the horizontal winning outcome is found', () => {
-    const gameState = 'XXX'.split('') as TicTacToeGameState;
+    const gameState = 'XXX'.split('') as TicTacToeBoard;
     const result = checkEndGame(gameState, false);
     expect(result).toEqual({ isPlayerWins: true });
   });
 
   it('returns isPlayerWins when the vertical winning outcome is found', () => {
-    const gameState = 'OXOOXOO'.split('') as TicTacToeGameState;
+    const gameState = 'OXOOXOO'.split('') as TicTacToeBoard;
     const result = checkEndGame(gameState, false);
     expect(result).toEqual({ isPlayerWins: true });
   });
 
   it('returns isPlayerWins when the diagonal winning outcome is found', () => {
-    const gameState = '00X0X0X'.split('') as TicTacToeGameState;
+    const gameState = '00X0X0X'.split('') as TicTacToeBoard;
     const result = checkEndGame(gameState, false);
     expect(result).toEqual({ isPlayerWins: true });
   });
 
   it('returns isDraw when the board is full and no winning outcome', () => {
-    const gameState = 'XOXOXXOXO'.split('') as TicTacToeGameState;
+    const gameState = 'XOXOXXOXO'.split('') as TicTacToeBoard;
     const result = checkEndGame(gameState, false);
     expect(result).toEqual({ isDraw: true });
   });

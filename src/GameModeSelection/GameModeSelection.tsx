@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import { TicTacToeProps } from '../TicTacToe/types';
 import './GameModeSelection.css';
 
@@ -9,7 +10,9 @@ interface GameModeSelectionProps {
   onClickToSwitchMode: React.Dispatch<React.SetStateAction<GameModes>>;
 }
 
-const GameModeSelection = ({ onClickToSwitchMode }: GameModeSelectionProps) => {
+const GameModeSelection = ({
+  onClickToSwitchMode,
+}: GameModeSelectionProps): ReactElement => {
   const handleClickToSelectMode = (mode: GameModes) => () => {
     onClickToSwitchMode({ initTime: new Date().valueOf(), ...mode });
   };

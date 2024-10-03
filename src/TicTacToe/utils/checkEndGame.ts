@@ -1,4 +1,6 @@
-import { TicTacToeGameState } from '../types';
+import { GameplayStates, TicTacToeBoard } from '../types';
+
+type EndGame = Partial<GameplayStates>;
 
 const ticTacToeWiningOutcomes = [
   [0, 1, 2],
@@ -11,18 +13,12 @@ const ticTacToeWiningOutcomes = [
   [2, 4, 6],
 ];
 
-const checkEndGame = (
-  gameState: TicTacToeGameState,
-  isPlayerTwoTurn: boolean
-) => {
+function checkEndGame(board: TicTacToeBoard, playerTwoTurn: boolean): EndGame {
   const hasWon = ticTacToeWiningOutcomes.find(
-    ([a, b, c]) =>
-      gameState[a] &&
-      gameState[a] === gameState[b] &&
-      gameState[a] === gameState[c]
+    ([a, b, c]) => board[a] && board[a] === board[b] && board[a] === board[c]
   );
 
-  const boardIsFull = !gameState.includes(null);
+  const boardIsFull = !board.includes(null);
 
   if (hasWon) {
     return {
@@ -37,8 +33,8 @@ const checkEndGame = (
   }
 
   return {
-    isPlayerTwoTurn: !isPlayerTwoTurn,
+    isPlayerTwoTurn: !playerTwoTurn,
   };
-};
+}
 
 export default checkEndGame;

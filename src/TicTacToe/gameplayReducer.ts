@@ -1,81 +1,54 @@
-import {
-  GameplayStates,
-  GameplayActions,
-  ChessPiece,
-  ChessAccessMap,
-} from './types';
+import { CHESS_MAP } from './constants';
+import { GameplayStates, GameplayActions, ChessPiece } from './types';
 import checkEndGame from './utils/checkEndGame';
 import miniMax from './utils/miniMax';
 
-const gameplayReducer = (state: GameplayStates, action: GameplayActions) => {
-  const { gameState, isPlayerTwoTurn } = state;
+const gameplayReducer = (
+  state: GameplayStates,
+  action: GameplayActions
+): GameplayStates => {
+  const { gameBoard, isPlayerTwoTurn } = state;
 
   switch (action.type) {
     case 'place-chess': {
-      const updatedGameState = [...gameState];
-      updatedGameState[action.cellPos] = action.chess;
+      const board = [...gameBoard];
+      board[action.cellPos] = action.chess;
 
-      const endGameState = checkEndGame(updatedGameState, isPlayerTwoTurn);
+      const endGameState = checkEndGame(board, isPlayerTwoTurn);
 
       return {
         ...state,
-        gameState: updatedGameState,
+        gameBoard: board,
         ...endGameState,
       };
     }
 
     case 'computer-place-chess': {
-      const updatedGameState = [...gameState];
-      const chessAccess: ChessAccessMap = !action.wildMode
-        ? {
-            computer: ['O'],
-            player: ['X'],
+      const board = [...gameBoard];
+      const chessMap = CHESS_MAP[action.wildMode ? 'wild' : 'standard'];
+      let bestMove = { score: -Infinity, pos: -1, chess: chessMap.computer[0] };
+
+      chessMap.computer.forEach((chess: ChessPiece) => {
+        for (let pos = 0; pos < board.length; pos++) {
+          if (board[pos] !== null) continue;
+
+          board[pos] = chess;
+          const score = miniMax(chessMap, board, false, -Infinity, Infinity);
+          board[pos] = null;
+
+          if (score > bestMove.score) {
+            bestMove = { score, chess, pos };
           }
-        : {
-            computer: ['X', 'O'],
-            player: ['X', 'O'],
-          };
-
-      let bestScore = -Infinity;
-      let bestMove: { chess: ChessPiece; pos: number } = {
-        pos: -1,
-        chess: chessAccess.computer[0],
-      };
-
-      chessAccess.computer.forEach((chess: ChessPiece) => {
-        updatedGameState.forEach((cell, i) => {
-          if (cell === null) {
-            updatedGameState[i] = chess;
-
-            const score = miniMax(
-              chessAccess,
-              updatedGameState,
-              0,
-              false,
-              -Infinity,
-              Infinity
-            );
-
-            updatedGameState[i] = null;
-
-            if (score > bestScore) {
-              bestScore = score;
-              bestMove = {
-                chess,
-                pos: i,
-              };
-            }
-          }
-        });
+        }
       });
 
-      updatedGameState[bestMove.pos] = bestMove.chess;
+      board[bestMove.pos] = bestMove.chess;
 
-      const endGameState = checkEndGame(updatedGameState, isPlayerTwoTurn);
+      const endGameState = checkEndGame(board, isPlayerTwoTurn);
 
       return {
         ...state,
-        gameState: updatedGameState,
+        gameBoard: board,
         ...endGameState,
       };
     }

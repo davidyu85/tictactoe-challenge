@@ -1,3 +1,5 @@
+import { ChessAccessMap } from './types';
+
 export const SINGLE_PLAYER_STRING = 'Player VS Computer';
 
 export const TWO_PLAYER_TURN_STRING = {
@@ -16,3 +18,14 @@ export const TWO_PLAYER_WIN_STRING = {
 };
 
 export const DRAW_STRING = 'Draw!';
+
+export const CHESS_MAP: { standard: ChessAccessMap; wild: ChessAccessMap } = {
+  standard: {
+    player: ['X'],
+    computer: ['O'],
+  },
+  wild: {
+    player: ['X', 'O'],
+    computer: ['X', 'O'],
+  },
+};

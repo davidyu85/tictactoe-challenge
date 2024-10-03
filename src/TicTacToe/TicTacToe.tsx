@@ -1,13 +1,13 @@
-import { useEffect, useReducer, useRef } from 'react';
+import { ReactElement, useEffect, useReducer, useRef } from 'react';
 import { BoardCell, GameBoard } from './Board/Board';
 import gameplayReducer from './gameplayReducer';
 import { SINGLE_PLAYER_STRING, TWO_PLAYER_TURN_STRING } from './constants';
 import ChessSelect from './ChessSelect/ChessSelect';
 import GameEnds from './GameEnds/GameEnds';
-import { ChessPiece, TicTacToeProps } from './types';
+import { ChessPiece, GameplayStates, TicTacToeProps } from './types';
 
-const initState = {
-  gameState: [...Array(9).fill(null)],
+const initState: GameplayStates = {
+  gameBoard: [...Array(9).fill(null)],
   isPlayerTwoTurn: false,
   isPlayerWins: false,
   isDraw: false,
@@ -16,12 +16,12 @@ const initState = {
 const TicTacToe = ({
   wildMode = false,
   computerIsPlayer2 = false,
-}: TicTacToeProps) => {
+}: TicTacToeProps): ReactElement => {
   const [states, dispatch] = useReducer(gameplayReducer, initState);
-  const { gameState, isPlayerTwoTurn, isPlayerWins, isDraw } = states;
+  const { gameBoard, isPlayerTwoTurn, isPlayerWins, isDraw } = states;
   const chessSelect = useRef<HTMLSelectElement>(null);
 
-  const handleClickToPlaceChess = (cellPos: number) => () => {
+  const handleClickToPlaceChess = (cellPos: number) => (): void => {
     dispatch({
       type: 'place-chess',
       cellPos,
@@ -38,13 +38,13 @@ const TicTacToe = ({
     }
   }, [isPlayerTwoTurn, computerIsPlayer2, wildMode]);
 
-  const disablePlaceChess =
+  const disablePlaceChess: boolean =
     isPlayerWins || isDraw || (isPlayerTwoTurn && computerIsPlayer2);
 
   return (
     <>
       <GameBoard>
-        {gameState.map((chess, i) => (
+        {gameBoard.map((chess, i) => (
           <BoardCell
             key={`cell-${i}`}
             chess={chess}
