@@ -46,7 +46,16 @@ const gameplayReducer = (state: GameplayStates, action: GameplayActions) => {
         updatedGameState.forEach((cell, i) => {
           if (cell === null) {
             updatedGameState[i] = chess;
-            const score = miniMax(chessAccess, updatedGameState, 0, false);
+
+            const score = miniMax(
+              chessAccess,
+              updatedGameState,
+              0,
+              false,
+              -Infinity,
+              Infinity
+            );
+
             updatedGameState[i] = null;
 
             if (score > bestScore) {
