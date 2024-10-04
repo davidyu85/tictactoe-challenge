@@ -1,0 +1,49 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Play with computer - standard mode > can block a player move diagonally 1`] = `
+"
+ O   O
+   X  
+ X    
+"
+`;
+
+exports[`Play with computer - standard mode > can block a player move horizontally 1`] = `
+"
+      
+   O  
+ X X O
+"
+`;
+
+exports[`Play with computer - standard mode > can block a player move vertically 1`] = `
+"
+ X    
+ X O  
+ O    
+"
+`;
+
+exports[`Play with computer - standard mode > can play a winning move diagonally 1`] = `
+"
+ O X  
+   O  
+ X X O
+"
+`;
+
+exports[`Play with computer - standard mode > can play a winning move horizontally 1`] = `
+"
+ O O O
+ X    
+ X X  
+"
+`;
+
+exports[`Play with computer - standard mode > can play a winning move vertically 1`] = `
+"
+ O X X
+ O   X
+ O    
+"
+`;

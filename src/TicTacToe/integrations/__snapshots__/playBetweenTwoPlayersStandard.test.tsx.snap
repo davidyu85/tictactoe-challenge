@@ -1,0 +1,33 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Play between two players - standard > enables draw between both players 1`] = `
+"
+ X O X
+ O X X
+ O X O
+"
+`;
+
+exports[`Play between two players - standard > enables player 1 to win the game 1`] = `
+"
+ X O O
+   X  
+     X
+"
+`;
+
+exports[`Play between two players - standard > enables player 2 to win the game 1`] = `
+"
+ X O X
+   O  
+   O X
+"
+`;
+
+exports[`Play between two players - standard > takes turn placing X and then O in standard mode 1`] = `
+"
+ X O X
+ O X O
+      
+"
+`;

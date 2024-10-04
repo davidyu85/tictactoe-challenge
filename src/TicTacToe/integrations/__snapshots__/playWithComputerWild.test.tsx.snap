@@ -1,0 +1,49 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Play with computer - wild mode > can steal winning move from the player diagonally 1`] = `
+"
+ X X  
+   X  
+     X
+"
+`;
+
+exports[`Play with computer - wild mode > can steal winning move from the player diagonally when player switch the chess piece 1`] = `
+"
+ X   O
+   O  
+ O    
+"
+`;
+
+exports[`Play with computer - wild mode > can steal winning move from the player horizontally 1`] = `
+"
+ X X X
+      
+ X    
+"
+`;
+
+exports[`Play with computer - wild mode > can steal winning move from the player horizontally when player switch the chess piece 1`] = `
+"
+ X    
+      
+ O O O
+"
+`;
+
+exports[`Play with computer - wild mode > can steal winning move from the player vertically 1`] = `
+"
+ X X X
+ X    
+      
+"
+`;
+
+exports[`Play with computer - wild mode > can steal winning move from the player vertically when player switch the chess piece 1`] = `
+"
+ X O  
+   O  
+   O  
+"
+`;

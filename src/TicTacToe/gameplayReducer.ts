@@ -3,6 +3,13 @@ import { GameplayStates, GameplayActions, ChessPiece } from './types';
 import checkEndGame from './utils/checkEndGame';
 import miniMax from './utils/miniMax';
 
+export const initState: GameplayStates = {
+  gameBoard: [...Array(9).fill(null)],
+  isPlayerTwoTurn: false,
+  isPlayerWins: false,
+  isDraw: false,
+};
+
 const gameplayReducer = (
   state: GameplayStates,
   action: GameplayActions

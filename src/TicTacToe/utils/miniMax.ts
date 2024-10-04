@@ -28,7 +28,8 @@ const miniMax = (
         board[pos] = null;
         bestScore = Math.max(score, bestScore);
 
-        // Alpha-Beta Pruning - comment out the break line, the test suite will run almost 8 times slower
+        // Alpha-Beta Pruning - comment out the break line,
+        // computer wild mode integration test will run 10 times slower
         alpha = Math.max(score, alpha);
         if (beta <= alpha) break;
       }
@@ -49,7 +50,8 @@ const miniMax = (
         board[pos] = null;
         bestScore = Math.min(score, bestScore);
 
-        // Alpha-Beta Pruning - comment out the break line, the test suite will run almost 8 times slower
+        // Alpha-Beta Pruning - comment out the break line,
+        // computer wild mode integration test will run 10 times slower
         beta = Math.min(score, beta);
         if (beta <= alpha) break;
       }

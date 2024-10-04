@@ -1,0 +1,33 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Play between two players - wild > allows all players to play either X or O in wild mode 1`] = `
+"
+ X X O
+ O X X
+      
+"
+`;
+
+exports[`Play between two players - wild > enables draw in wild mode 1`] = `
+"
+ X X O
+ O O X
+ X X O
+"
+`;
+
+exports[`Play between two players - wild > enables player 1 to win the wild mode game 1`] = `
+"
+ X X X
+      
+      
+"
+`;
+
+exports[`Play between two players - wild > enables player 2 to win the wild mode game 1`] = `
+"
+ O   X
+   O  
+     O
+"
+`;

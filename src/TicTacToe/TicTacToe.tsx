@@ -1,17 +1,10 @@
 import { ReactElement, useEffect, useReducer, useRef } from 'react';
 import { BoardCell, GameBoard } from './Board/Board';
-import gameplayReducer from './gameplayReducer';
+import gameplayReducer, { initState } from './gameplayReducer';
 import { SINGLE_PLAYER_STRING, TWO_PLAYER_TURN_STRING } from './constants';
 import ChessSelect from './ChessSelect/ChessSelect';
 import GameEnds from './GameEnds/GameEnds';
-import { ChessPiece, GameplayStates, TicTacToeProps } from './types';
-
-const initState: GameplayStates = {
-  gameBoard: [...Array(9).fill(null)],
-  isPlayerTwoTurn: false,
-  isPlayerWins: false,
-  isDraw: false,
-};
+import { ChessPiece, TicTacToeProps } from './types';
 
 const TicTacToe = ({
   wildMode = false,
