@@ -10,6 +10,14 @@ export const initState: GameplayStates = {
   isDraw: false,
 };
 
+/**
+ * State Reducer Pattern exposed through React's useReducer
+ * to manage TicTacToe's advance state
+ *
+ * @param {GameplayStates} state - State required for Tic Tac Toe
+ * @param {GameplayActions} action  - Player / computer actions that update the game states
+ * @returns {GameplayStates}
+ */
 const gameplayReducer = (
   state: GameplayStates,
   action: GameplayActions

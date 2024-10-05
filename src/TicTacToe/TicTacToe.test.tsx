@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import TicTacToe from './TicTacToe';
 import { GameplayStates } from './types';
 
-describe('TicTacToe', () => {
+describe('TicTacToe + gameplayReducer', () => {
   it('displays a 3 x 3 Tic Tac Toe board', () => {
     render(<TicTacToe />);
     const cells = screen.getAllByRole('button');

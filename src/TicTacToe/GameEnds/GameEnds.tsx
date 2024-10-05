@@ -6,12 +6,18 @@ import {
 } from '../constants';
 
 interface GameEndsProps {
-  computerIsPlayer2: boolean;
+  computerIsPlayer2?: boolean;
   isPlayerTwoTurn: boolean;
   isPlayerWins: boolean;
   isDraw: boolean;
 }
 
+/**
+ * Display end game messages
+ *
+ * @param {GameEndsProps} props
+ * @returns {ReactNode} - This returns a void when end game is not reached, thus cannot consider an element
+ */
 const GameEnds = ({
   computerIsPlayer2,
   isPlayerTwoTurn,

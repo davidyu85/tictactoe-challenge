@@ -2,12 +2,25 @@ import { forwardRef, ReactElement } from 'react';
 import './ChessSelect.css';
 
 interface ChessSelectProps {
-  wildMode: boolean;
+  /** When this is true, it shows the HTMLSelectElement for selecting the chess piece */
+  wildMode?: boolean;
+  /** This is only useful during standard gameplay, which each player is mapped to one choice of chess piece */
   isPlayerTwoTurn: boolean;
 }
 
 const ChessSelect = forwardRef<HTMLSelectElement, ChessSelectProps>(
-  ({ wildMode, isPlayerTwoTurn }, ref): ReactElement => {
+  /**
+   * This allow human players to select the chess piece in wild Tic Tac Toe variant.
+   * The HTMLSelectElement is hidden during standard gameplay, but the access is availabe via React Ref
+   *
+   * @param {ChessSelectProps} props
+   * @param {React.ForwardedRef<HTMLSelectElement>} ref
+   * @returns {ReactElement}
+   */
+  (
+    { wildMode, isPlayerTwoTurn }: ChessSelectProps,
+    ref: React.ForwardedRef<HTMLSelectElement>
+  ): ReactElement => {
     const wildSetup = (
       <>
         <small>Wild mode allows you to play either X or O</small>

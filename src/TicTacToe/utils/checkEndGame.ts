@@ -13,6 +13,14 @@ const ticTacToeWiningOutcomes = [
   [2, 4, 6],
 ];
 
+/**
+ * Before a turn is switched, the game needs to check whether terminal state has been reached
+ * For a Tic Tac Toe, it is either someone wins the game, a draw, or the game is still ongoing
+ *
+ * @param board - The current state of the gameboard
+ * @param playerTwoTurn - This combines with isPlayerWins defines who has won the game. This is also used to toggle turns
+ * @returns {EndGame} - Partial gameplay state that is appended back into reducer state, or used by Minimax to determine terminal state scores
+ */
 function checkEndGame(board: TicTacToeBoard, playerTwoTurn: boolean): EndGame {
   const hasWon = ticTacToeWiningOutcomes.find(
     ([a, b, c]) => board[a] && board[a] === board[b] && board[a] === board[c]
