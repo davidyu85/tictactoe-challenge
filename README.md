@@ -36,6 +36,7 @@ npm run test:cov
 ### Interesting learnings
 
 - I have not managed to win over the computer opponent while playing any single player modes
-- Commenting out Alpha-Beta Pruning syntax in Minimax implementation, the computation delay is noticable in wild variant, but not so much during standard gameplay
-- Commenting out Alpha-Beta Pruning syntax in Minimax implementation, the overall test runs 10X slower, due to wild variant has many game state to evaluate
-- I have used the snapshot test to conveniently visualize the end game state for each integration test. I have kept these .snap files for review convenience, but the snapshots makes the test brittle. This can be easily turned off globally by commenting out the `renderGameStateSnapShot` function code
+- Computer playing the move takes less than half a second. Making depth limited Minimax is unnecessary
+- Commenting out [Alpha-Beta Pruning syntax](https://github.com/hiring-duckduckgo-com/david-yu/blob/main/src/TicTacToe/utils/miniMax.ts#L49) in Minimax implementation, the computation delay is noticable in wild variant, but not so much during standard gameplay
+- Commenting out [Alpha-Beta Pruning syntax](https://github.com/hiring-duckduckgo-com/david-yu/blob/main/src/TicTacToe/utils/miniMax.ts#L49) in Minimax implementation, the overall test runs 10X slower, due to wild variant has many game state to evaluate
+- I have used the snapshot test to conveniently visualize the end game state for each integration test. I have kept these [.snap files](https://github.com/hiring-duckduckgo-com/david-yu/tree/main/src/TicTacToe/integrations/__snapshots__) for review convenience, but the snapshots makes the test brittle. This can be easily turned off globally by commenting out the `renderGameStateSnapShot` function code
