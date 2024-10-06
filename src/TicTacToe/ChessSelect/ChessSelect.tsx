@@ -11,7 +11,7 @@ interface ChessSelectProps {
 const ChessSelect = forwardRef<HTMLSelectElement, ChessSelectProps>(
   /**
    * This allow human players to select the chess piece in wild Tic Tac Toe variant.
-   * The HTMLSelectElement is hidden during standard gameplay, but the access is availabe via React Ref
+   * The HTMLSelectElement is hidden during standard gameplay, but the selected value is available via React Ref
    *
    * @param {ChessSelectProps} props
    * @param {React.ForwardedRef<HTMLSelectElement>} ref

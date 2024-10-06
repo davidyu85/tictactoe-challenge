@@ -45,4 +45,16 @@ describe('TicTacToe + gameplayReducer', () => {
     expect(middleCell).toHaveTextContent('');
     expect(middleCell).toBeDisabled();
   });
+
+  it('starts with a chess if computer player plays first', () => {
+    render(<TicTacToe computerIsPlayer={1} />);
+    const cellHasTaken = screen.queryByRole('button', { name: 'X' });
+    expect(cellHasTaken).toBeInTheDocument();
+  });
+
+  it('renders a clear board if computer player plays second', () => {
+    render(<TicTacToe computerIsPlayer={2} />);
+    const cellHasTaken = screen.queryByRole('button', { name: 'X' });
+    expect(cellHasTaken).toBeNull();
+  });
 });

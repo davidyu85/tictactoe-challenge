@@ -10,12 +10,7 @@ import {
 describe('GameEnds', () => {
   it('declares player 1 wins', () => {
     render(
-      <GameEnds
-        computerIsPlayer2={false}
-        isPlayerTwoTurn={false}
-        isPlayerWins={true}
-        isDraw={false}
-      />
+      <GameEnds isPlayerTwoTurn={false} isPlayerWins={true} isDraw={false} />
     );
     expect(screen.getByRole('heading')).toHaveTextContent(
       TWO_PLAYER_WIN_STRING[1]
@@ -24,12 +19,7 @@ describe('GameEnds', () => {
 
   it('declares player 2 wins', () => {
     render(
-      <GameEnds
-        computerIsPlayer2={false}
-        isPlayerTwoTurn={true}
-        isPlayerWins={true}
-        isDraw={false}
-      />
+      <GameEnds isPlayerTwoTurn={true} isPlayerWins={true} isDraw={false} />
     );
     expect(screen.getByRole('heading')).toHaveTextContent(
       TWO_PLAYER_WIN_STRING[2]
@@ -39,7 +29,7 @@ describe('GameEnds', () => {
   it('declares player wins in single player mode', () => {
     render(
       <GameEnds
-        computerIsPlayer2={true}
+        computerIsPlayer={2}
         isPlayerTwoTurn={false}
         isPlayerWins={true}
         isDraw={false}
@@ -52,12 +42,7 @@ describe('GameEnds', () => {
 
   it('declares player 2 wins', () => {
     render(
-      <GameEnds
-        computerIsPlayer2={false}
-        isPlayerTwoTurn={true}
-        isPlayerWins={true}
-        isDraw={false}
-      />
+      <GameEnds isPlayerTwoTurn={true} isPlayerWins={true} isDraw={false} />
     );
     expect(screen.getByRole('heading')).toHaveTextContent(
       TWO_PLAYER_WIN_STRING[2]
@@ -67,7 +52,7 @@ describe('GameEnds', () => {
   it('declares draw', () => {
     render(
       <GameEnds
-        computerIsPlayer2={false}
+        computerIsPlayer={2}
         isPlayerTwoTurn={false}
         isPlayerWins={false}
         isDraw={true}
@@ -78,12 +63,7 @@ describe('GameEnds', () => {
 
   it('hides the component when it is neither winning nor draw', () => {
     render(
-      <GameEnds
-        computerIsPlayer2={false}
-        isPlayerTwoTurn={false}
-        isPlayerWins={false}
-        isDraw={false}
-      />
+      <GameEnds isPlayerTwoTurn={false} isPlayerWins={false} isDraw={false} />
     );
     expect(screen.queryByRole('heading')).toBeNull();
   });

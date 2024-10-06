@@ -1,16 +1,17 @@
-import { ReactElement, useEffect, useReducer, useRef } from 'react';
+import { ReactElement, useEffect, useMemo, useReducer, useRef } from 'react';
 import { BoardCell, GameBoard } from './Board/Board';
 import gameplayReducer, { initState } from './gameplayReducer';
 import { SINGLE_PLAYER_STRING, TWO_PLAYER_TURN_STRING } from './constants';
 import ChessSelect from './ChessSelect/ChessSelect';
 import GameEnds from './GameEnds/GameEnds';
-import { ChessPiece } from './types';
+import { ChessPiece, Players } from './types';
+import singlePlayerChessSetup from './utils/singlePlayerChessSetup';
 
 export interface TicTacToeProps {
   /** Toggle between standard gameplay or wild variant */
   wildMode?: boolean;
   /** Toggle the second player to be computer or a human */
-  computerIsPlayer2?: boolean;
+  computerIsPlayer?: Players;
 }
 
 /**
@@ -24,14 +25,10 @@ export interface TicTacToeProps {
  */
 const TicTacToe = ({
   wildMode,
-  computerIsPlayer2,
+  computerIsPlayer,
 }: TicTacToeProps): ReactElement => {
-  // State Reducer Pattern is introduced here
   const [states, dispatch] = useReducer(gameplayReducer, initState);
   const { gameBoard, isPlayerTwoTurn, isPlayerWins, isDraw } = states;
-
-  // This reference to a HTMLSelectElement, which is useful to grab the native selected
-  // value, without enforcing the element being unnecessarily controlled by React
   const chessSelect = useRef<HTMLSelectElement>(null);
 
   const handleClickToPlaceChess = (cellPos: number) => (): void => {
@@ -42,21 +39,22 @@ const TicTacToe = ({
     });
   };
 
-  // This determines the turn belongs to a computer opponent,
-  // this triggers the function finding the best move for the computer.
+  const singlePlayer = useMemo(
+    () => singlePlayerChessSetup(isPlayerTwoTurn, wildMode, computerIsPlayer),
+    [isPlayerTwoTurn, wildMode, computerIsPlayer]
+  );
+
+  const disableBoard: boolean | undefined =
+    isPlayerWins || isDraw || singlePlayer?.isComputerPlayerTurn;
+
   useEffect(() => {
-    if (computerIsPlayer2 && isPlayerTwoTurn) {
+    if (singlePlayer?.isComputerPlayerTurn) {
       dispatch({
         type: 'computer-place-chess',
-        wildMode,
+        chessMap: singlePlayer.chessMap,
       });
     }
-  }, [isPlayerTwoTurn, computerIsPlayer2, wildMode]);
-
-  // We need to ensure disabling the board access when end game is reached or
-  // computer is still finding the next move
-  const disablePlaceChess: boolean | undefined =
-    isPlayerWins || isDraw || (isPlayerTwoTurn && computerIsPlayer2);
+  }, [singlePlayer]);
 
   return (
     <>
@@ -66,25 +64,27 @@ const TicTacToe = ({
             key={`cell-${i}`}
             chess={chess}
             onClickOnce={handleClickToPlaceChess(i)}
-            disabled={disablePlaceChess}
+            disabled={disableBoard}
           />
         ))}
       </GameBoard>
 
-      {!computerIsPlayer2 ? (
-        <label>{TWO_PLAYER_TURN_STRING[isPlayerTwoTurn ? 2 : 1]}</label>
-      ) : (
-        <label>{SINGLE_PLAYER_STRING}</label>
+      <label>
+        {computerIsPlayer
+          ? SINGLE_PLAYER_STRING[computerIsPlayer]
+          : TWO_PLAYER_TURN_STRING[isPlayerTwoTurn ? 2 : 1]}
+      </label>
+
+      {!isDraw && !isPlayerWins && (
+        <ChessSelect
+          ref={chessSelect}
+          wildMode={wildMode}
+          isPlayerTwoTurn={isPlayerTwoTurn}
+        />
       )}
 
-      <ChessSelect
-        ref={chessSelect}
-        wildMode={wildMode}
-        isPlayerTwoTurn={isPlayerTwoTurn}
-      />
-
       <GameEnds
-        computerIsPlayer2={computerIsPlayer2}
+        computerIsPlayer={computerIsPlayer}
         isPlayerTwoTurn={isPlayerTwoTurn}
         isPlayerWins={isPlayerWins}
         isDraw={isDraw}

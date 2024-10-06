@@ -6,7 +6,7 @@ import { renderGameStateSnapShot } from '../../../vitest.setup';
 
 describe('Play with computer - standard mode', () => {
   beforeEach(() => {
-    render(<TicTacToe computerIsPlayer2 />);
+    render(<TicTacToe computerIsPlayer={2} />);
   });
 
   afterEach(() => {

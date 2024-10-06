@@ -1,4 +1,3 @@
-import { CHESS_MAP } from './constants';
 import { GameplayStates, GameplayActions, ChessPiece } from './types';
 import checkEndGame from './utils/checkEndGame';
 import miniMax from './utils/miniMax';
@@ -40,7 +39,7 @@ const gameplayReducer = (
 
     case 'computer-place-chess': {
       const board = [...gameBoard];
-      const chessMap = CHESS_MAP[action.wildMode ? 'wild' : 'standard'];
+      const { chessMap } = action;
       let bestMove = { score: -Infinity, pos: -1, chess: chessMap.computer[0] };
 
       chessMap.computer.forEach((chess: ChessPiece) => {

@@ -1,5 +1,7 @@
 export type ChessPiece = 'X' | 'O';
 
+export type Players = 1 | 2;
+
 export type TicTacToeBoard = (ChessPiece | null)[];
 
 /**
@@ -19,7 +21,7 @@ export type GameplayActions =
   | {
       type: 'computer-place-chess';
       /** This determines which chess map will be used for the current game */
-      wildMode?: boolean;
+      chessMap: ChessAccessMap;
     };
 
 export interface GameplayStates {

@@ -9,16 +9,32 @@ describe('GameModeSelection', () => {
     render(<GameModeSelection onClickToSwitchMode={mockSwitchModeFn} />);
     fireEvent.click(screen.getByText('Single player standard mode'));
     expect(mockSwitchModeFn).toHaveBeenCalledWith({
-      computerIsPlayer2: true,
+      computerIsPlayer: 2,
       initTime: expect.anything(),
-      wildMode: false,
     });
 
     mockSwitchModeFn.mockClear();
 
     fireEvent.click(screen.getByText('Single player wild mode'));
     expect(mockSwitchModeFn).toHaveBeenCalledWith({
-      computerIsPlayer2: true,
+      computerIsPlayer: 2,
+      initTime: expect.anything(),
+      wildMode: true,
+    });
+
+    mockSwitchModeFn.mockClear();
+
+    fireEvent.click(screen.getByText('Single player standard mode - AI first'));
+    expect(mockSwitchModeFn).toHaveBeenCalledWith({
+      computerIsPlayer: 1,
+      initTime: expect.anything(),
+    });
+
+    mockSwitchModeFn.mockClear();
+
+    fireEvent.click(screen.getByText('Single player wild mode - AI first'));
+    expect(mockSwitchModeFn).toHaveBeenCalledWith({
+      computerIsPlayer: 1,
       initTime: expect.anything(),
       wildMode: true,
     });
@@ -27,16 +43,13 @@ describe('GameModeSelection', () => {
 
     fireEvent.click(screen.getByText('Two players standard mode'));
     expect(mockSwitchModeFn).toHaveBeenCalledWith({
-      computerIsPlayer2: false,
       initTime: expect.anything(),
-      wildMode: false,
     });
 
     mockSwitchModeFn.mockClear();
 
     fireEvent.click(screen.getByText('Two players wild mode'));
     expect(mockSwitchModeFn).toHaveBeenCalledWith({
-      computerIsPlayer2: false,
       initTime: expect.anything(),
       wildMode: true,
     });

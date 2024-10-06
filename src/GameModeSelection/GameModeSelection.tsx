@@ -31,8 +31,7 @@ const GameModeSelection = ({
     <div className="game-mode-selection">
       <button
         onClick={handleClickToSelectMode({
-          wildMode: false,
-          computerIsPlayer2: true,
+          computerIsPlayer: 2,
         })}
       >
         Single player standard mode
@@ -40,17 +39,20 @@ const GameModeSelection = ({
 
       <button
         onClick={handleClickToSelectMode({
-          wildMode: false,
-          computerIsPlayer2: false,
+          computerIsPlayer: 1,
         })}
       >
+        Single player standard mode - AI first
+      </button>
+
+      <button onClick={handleClickToSelectMode({})}>
         Two players standard mode
       </button>
 
       <button
         onClick={handleClickToSelectMode({
           wildMode: true,
-          computerIsPlayer2: true,
+          computerIsPlayer: 2,
         })}
       >
         Single player wild mode
@@ -59,7 +61,15 @@ const GameModeSelection = ({
       <button
         onClick={handleClickToSelectMode({
           wildMode: true,
-          computerIsPlayer2: false,
+          computerIsPlayer: 1,
+        })}
+      >
+        Single player wild mode - AI first
+      </button>
+
+      <button
+        onClick={handleClickToSelectMode({
+          wildMode: true,
         })}
       >
         Two players wild mode

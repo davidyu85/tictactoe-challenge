@@ -1,13 +1,17 @@
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import './App.css';
 import TicTacToe from './TicTacToe/TicTacToe';
 import GameModeSelection, {
   GameModes,
 } from './GameModeSelection/GameModeSelection';
 
-function App() {
+/**
+ * Game app - Tic Tac Toe POC with in-game menu to restart the game in various modes
+ * @returns {ReactElement}
+ */
+function App(): ReactElement {
   const [gameMode, setGameMode] = useState<GameModes>({});
-  const { initTime, wildMode, computerIsPlayer2 } = gameMode;
+  const { initTime, wildMode, computerIsPlayer } = gameMode;
 
   return (
     <>
@@ -16,7 +20,7 @@ function App() {
       <TicTacToe
         key={initTime}
         wildMode={wildMode}
-        computerIsPlayer2={computerIsPlayer2}
+        computerIsPlayer={computerIsPlayer}
       />
     </>
   );

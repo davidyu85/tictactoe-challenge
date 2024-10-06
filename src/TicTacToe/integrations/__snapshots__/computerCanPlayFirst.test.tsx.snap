@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Computer can play first > can finish a game in standard mode 1`] = `
+"
+ X O  
+ X X X
+ O   O
+"
+`;
+
+exports[`Computer can play first > can finish a game in wild mode 1`] = `
+"
+ O O O
+   X  
+     O
+"
+`;

@@ -6,7 +6,7 @@ import { renderGameStateSnapShot } from '../../../vitest.setup';
 
 describe('Play with computer - wild mode', () => {
   beforeEach(() => {
-    render(<TicTacToe computerIsPlayer2 wildMode />);
+    render(<TicTacToe computerIsPlayer={2} wildMode />);
   });
 
   afterEach(() => {
