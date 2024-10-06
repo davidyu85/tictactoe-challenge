@@ -40,12 +40,45 @@ describe('GameEnds', () => {
     );
   });
 
-  it('declares player 2 wins', () => {
+  it('declares computer wins in single player mode', () => {
     render(
-      <GameEnds isPlayerTwoTurn={true} isPlayerWins={true} isDraw={false} />
+      <GameEnds
+        computerIsPlayer={2}
+        isPlayerTwoTurn={true}
+        isPlayerWins={true}
+        isDraw={false}
+      />
     );
     expect(screen.getByRole('heading')).toHaveTextContent(
-      TWO_PLAYER_WIN_STRING[2]
+      SINGLE_PLAYER_WIN_STRING[2]
+    );
+  });
+
+  it('declares player wins in single player mode when computer is first player', () => {
+    render(
+      <GameEnds
+        computerIsPlayer={1}
+        isPlayerTwoTurn={false}
+        isPlayerWins={true}
+        isDraw={false}
+      />
+    );
+    expect(screen.getByRole('heading')).toHaveTextContent(
+      SINGLE_PLAYER_WIN_STRING[2]
+    );
+  });
+
+  it('declares computer wins in single player mode when computer is first player', () => {
+    render(
+      <GameEnds
+        computerIsPlayer={1}
+        isPlayerTwoTurn={true}
+        isPlayerWins={true}
+        isDraw={false}
+      />
+    );
+    expect(screen.getByRole('heading')).toHaveTextContent(
+      SINGLE_PLAYER_WIN_STRING[1]
     );
   });
 
